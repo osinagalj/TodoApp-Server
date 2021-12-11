@@ -43,6 +43,7 @@ public class TaskController {
 		return ResponseEntity.ok(newTask);
 	}
 	
+	/*
 	@GetMapping(path = "/tasks/{id}")
 	public ResponseEntity<Task> getTask(@PathVariable(value = "id") Long id){
 		Task task = taskService.findTaskById(id);
@@ -53,7 +54,15 @@ public class TaskController {
 		
 		
 	}
+	*/
 	
+	@GetMapping(path = "/test")
+	public ResponseEntity<String> getTask(@PathVariable(value = "id") Long id){
+		System.out.println("ENTRANDO AL GET");
+		return ResponseEntity.ok("Accesible");
+		
+		
+	}
 	@GetMapping(path = "/tasks")
 	public ResponseEntity<List<Task>> getTasks( ){
 		List<Task> list = taskService.getAllTasks();
