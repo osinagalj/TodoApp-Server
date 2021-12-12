@@ -1,23 +1,23 @@
 package com.todoList.app.security.entity;
 
-import com.todoList.app.security.enums.RolNombre;
+import com.todoList.app.security.enums.RoleName;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Rol {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private RolNombre rolNombre;
+    private RoleName rolNombre;
 
-    public Rol() {
+    public Role() {
     }
 
-    public Rol(@NotNull RolNombre rolNombre) {
+    public Role(@NotNull RoleName rolNombre) {
         this.rolNombre = rolNombre;
     }
 
@@ -29,11 +29,11 @@ public class Rol {
         this.id = id;
     }
 
-    public RolNombre getRolNombre() {
+    public RoleName getRolNombre() {
         return rolNombre;
     }
 
-    public void setRolNombre(RolNombre rolNombre) {
+    public void setRolNombre(RoleName rolNombre) {
         this.rolNombre = rolNombre;
     }
 }

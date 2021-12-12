@@ -34,7 +34,7 @@ public class FolderController {
 	public ResponseEntity<Folder> createFolder(@RequestBody FolderInput folder){
 		Folder t = new Folder();
 		t.setName(folder.getName());
-		t.setBooks(new HashSet<>());
+		t.setTasks(new HashSet<>());
 		return ResponseEntity.ok(folderService.register(t));
 	}
 	
@@ -45,7 +45,7 @@ public class FolderController {
 	
 	@GetMapping(path = "/tasks/{id}")
 	public ResponseEntity<Set<Task>> getTasksByFolder(@PathVariable(value = "id") Long name){
-		Set<Task> list = folderService.findFolderById(name).getBooks();
+		Set<Task> list = folderService.findFolderById(name).getTasks();
 		return ResponseEntity.ok(list);
 	}
 	

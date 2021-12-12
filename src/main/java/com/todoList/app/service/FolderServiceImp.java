@@ -36,7 +36,7 @@ public class FolderServiceImp implements FolderService{
 	@Override
 	public void remove(Long id) {
 		Folder f= folderRepository.findFolderById(id);
-		for(Task t: f.getBooks()) {
+		for(Task t: f.getTasks()) {
 			taskRepository.delete(t);
 		}
 		folderRepository.deleteById(id);

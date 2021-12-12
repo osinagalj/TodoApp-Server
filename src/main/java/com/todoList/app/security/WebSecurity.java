@@ -22,7 +22,7 @@ import com.todoList.app.security.service.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MainSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -59,7 +59,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
-    	String[] exceptions = {"/auth/**","/api/v0/folders/", "/api/v0/folders", "/api/v0/tasks", "/api/v0/tasks/"};
+    	String[] exceptions = {"/api/v0/folders/**"}; //    "/**",
     	
         http.cors().and().csrf().disable()
                 .authorizeRequests()

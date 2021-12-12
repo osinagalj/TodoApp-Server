@@ -2,19 +2,21 @@ package com.todoList.app.security.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class LoginUsuario {
+public class LoginUser {
     @NotBlank
-    private String nombreUsuario;
-    @NotBlank
+    private String username;
+	@NotBlank
     private String password;
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
+	
+    public String getUsername() {
+		return username;
+	}
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
     public String getPassword() {
         return password;

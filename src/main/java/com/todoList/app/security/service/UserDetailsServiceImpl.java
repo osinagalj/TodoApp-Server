@@ -6,18 +6,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.todoList.app.security.entity.Usuario;
-import com.todoList.app.security.entity.UsuarioPrincipal;
+import com.todoList.app.security.entity.User;
+import com.todoList.app.security.entity.UserJWT;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    UsuarioService usuarioService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
-        return UsuarioPrincipal.build(usuario);
+        User usuario = userService.getByUsername(nombreUsuario).get();
+        return UserJWT.build(usuario);
     }
 }

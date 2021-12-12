@@ -13,15 +13,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.todoList.app.security.dto.JwtDto;
-import com.todoList.app.security.dto.LoginUsuario;
-import com.todoList.app.security.dto.NuevoUsuario;
+import com.todoList.app.security.dto.LoginUser;
+import com.todoList.app.security.dto.NewUser;
 import com.todoList.app.security.entity.Message;
-import com.todoList.app.security.entity.Rol;
-import com.todoList.app.security.entity.Usuario;
-import com.todoList.app.security.enums.RolNombre;
+import com.todoList.app.security.entity.Role;
+import com.todoList.app.security.entity.User;
+import com.todoList.app.security.enums.RoleName;
 import com.todoList.app.security.jwt.JwtProvider;
-import com.todoList.app.security.service.RolService;
-import com.todoList.app.security.service.UsuarioService;
+import com.todoList.app.security.service.RoleService;
+import com.todoList.app.security.service.UserService;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -39,41 +39,39 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UsuarioService usuarioService;
+    UserService userService;
 
     @Autowired
-    RolService rolService;
+    RoleService roleService;
 
     @Autowired
     JwtProvider jwtProvider;
     
 
     @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
+    public ResponseEntity<?> nuevo(@Valid @RequestBody NewUser nuevoUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario()))
+        if(userService.existsByUsername(nuevoUsuario.getUsername()))
             return new ResponseEntity(new Message("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
-        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(new Message("ese email ya existe"), HttpStatus.BAD_REQUEST);
-        Usuario usuario =
-                new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getEmail(),
+        User usuario =
+                new User(nuevoUsuario.getName(), nuevoUsuario.getUsername(),
                         passwordEncoder.encode(nuevoUsuario.getPassword()));
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getByRolNombre(RoleName.ROLE_USER).get());
         if(nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+            roles.add(roleService.getByRolNombre(RoleName.ROLE_ADMIN).get());
         usuario.setRoles(roles);
-        usuarioService.save(usuario);
+        userService.save(usuario);
         return new ResponseEntity(new Message("usuario guardado"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUser loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("campos mal puestos"), HttpStatus.BAD_REQUEST);
         Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getUsername(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();

@@ -8,26 +8,25 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UsuarioPrincipal implements UserDetails {
+public class UserJWT implements UserDetails {
     private String nombre;
     private String nombreUsuario;
-    private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UsuarioPrincipal(String nombre, String nombreUsuario, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserJWT(String nombre, String nombreUsuario, String password, Collection<? extends GrantedAuthority> authorities) {
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
-        this.email = email;
+       
         this.password = password;
         this.authorities = authorities;
     }
 
-    public static UsuarioPrincipal build(Usuario usuario){
+    public static UserJWT build(User usuario){
         List<GrantedAuthority> authorities =
                 usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
                 .getRolNombre().name())).collect(Collectors.toList());
-        return new UsuarioPrincipal(usuario.getNombre(), usuario.getNombreUsuario(), usuario.getEmail(), usuario.getPassword(), authorities);
+        return new UserJWT(usuario.getName(), usuario.getUsername(), usuario.getPassword(), authorities);
     }
 
     @Override
@@ -69,7 +68,5 @@ public class UsuarioPrincipal implements UserDetails {
         return nombre;
     }
 
-    public String getEmail() {
-        return email;
-    }
+
 }

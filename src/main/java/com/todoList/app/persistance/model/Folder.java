@@ -27,19 +27,22 @@ public class Folder {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "task_id")
-	private Set<Task> books = new HashSet<>();
+	private Set<Task> tasks = new HashSet<>();
 	
 	public void addTask(Task task) {
-		books.add(task);
+		tasks.add(task);
 	}
 	
-	public Set<Task> getBooks() {
-		return books;
+
+	public Set<Task> getTasks() {
+		return tasks;
 	}
 
-	public void setBooks(Set<Task> books) {
-		this.books = books;
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
 	}
+
 
 	public Long getId() {
 		return id;
