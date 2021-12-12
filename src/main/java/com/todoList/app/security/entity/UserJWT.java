@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserJWT implements UserDetails {
-    private String nombre;
-    private String nombreUsuario;
+    private String name;
+    private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserJWT(String nombre, String nombreUsuario, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.nombre = nombre;
-        this.nombreUsuario = nombreUsuario;
+        this.name = nombre;
+        this.username = nombreUsuario;
        
         this.password = password;
         this.authorities = authorities;
@@ -41,7 +41,7 @@ public class UserJWT implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nombreUsuario;
+        return username;
     }
 
     @Override
@@ -64,8 +64,8 @@ public class UserJWT implements UserDetails {
         return true;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
 

@@ -59,7 +59,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
-    	String[] exceptions = {"/api/v0/folders/**"}; //    "/**",
+    	String[] exceptions = {"/**"}; //    "/**", /api/v0/folders/**
     	
         http.cors().and().csrf().disable()
                 .authorizeRequests()

@@ -48,18 +48,18 @@ public class AuthController {
     JwtProvider jwtProvider;
     
 
-    @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody NewUser nuevoUsuario, BindingResult bindingResult){
+    @PostMapping("/newUser")
+    public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
-            return new ResponseEntity(new Message("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(userService.existsByUsername(nuevoUsuario.getUsername()))
+            return new ResponseEntity(new Message("wrong fields or invalid email"), HttpStatus.BAD_REQUEST);
+        if(userService.existsByUsername(newUsuario.getUsername()))
             return new ResponseEntity(new Message("ese nombre ya existe"), HttpStatus.BAD_REQUEST);
         User usuario =
-                new User(nuevoUsuario.getName(), nuevoUsuario.getUsername(),
-                        passwordEncoder.encode(nuevoUsuario.getPassword()));
+                new User(newUsuario.getName(), newUsuario.getUsername(),
+                        passwordEncoder.encode(newUsuario.getPassword()));
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.getByRolNombre(RoleName.ROLE_USER).get());
-        if(nuevoUsuario.getRoles().contains("admin"))
+        if(newUsuario.getRoles().contains("admin"))
             roles.add(roleService.getByRolNombre(RoleName.ROLE_ADMIN).get());
         usuario.setRoles(roles);
         userService.save(usuario);

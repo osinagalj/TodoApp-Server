@@ -30,7 +30,6 @@ public class User {
     public User(@NotNull String name, @NotNull String username, @NotNull String password) {
         this.name = name;
         this.username = username;
-      
         this.password = password;
     }
 
