@@ -2,6 +2,7 @@ package com.todoList.app.configurations;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -11,11 +12,14 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class SecurityConfig {
 	
+    @Value("${api.url}") //Defined in application.properties
+    private String url;
+	
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/")); //https://miapp-frontend.herokuapp.com
+		corsConfiguration.setAllowedOrigins(Arrays.asList(url));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers"));

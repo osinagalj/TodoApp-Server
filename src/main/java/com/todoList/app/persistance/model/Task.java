@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table(name="Task")
 public class Task {
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,19 +21,6 @@ public class Task {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	
-//	@ManyToOne(cascade = CascadeType.ALL) //The Many refers to Cow and the One to Herd
-//	@JoinColumn(name = "folder_id", referencedColumnName = "id" )
-//	private Folder folder;
-
-
-//	public Folder getFolder() {
-//		return folder;
-//	}
-//	public void setFolder(Folder folder) {
-//		this.folder = folder;
-//	}
-
 	@Column(name = "done", nullable = true)
 	private Boolean done;
 	
