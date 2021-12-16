@@ -14,4 +14,5 @@ public interface FolderService {
 	Folder update(Folder folder);
 	void addTask(Long folder, Task task);
 	
+	public Iterable<Folder> findAll();
 }
