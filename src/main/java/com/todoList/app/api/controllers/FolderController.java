@@ -22,15 +22,19 @@ import com.todoList.app.persistance.model.Folder;
 import com.todoList.app.persistance.model.Task;
 import com.todoList.app.service.FolderService;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
-@RequestMapping("/api/v0/folders")
+@RequestMapping("folders")
 public class FolderController {
 		
 	@Autowired
 	FolderService folderService;
 	
+	
 	@PostMapping(path = "/")
+	@ApiOperation("Use this method to create a new folder")
 	public ResponseEntity<Folder> createFolder(@RequestBody FolderInput folder){
 		Folder t = new Folder();
 		t.setName(folder.getName());
@@ -39,23 +43,27 @@ public class FolderController {
 	}
 	
 	@GetMapping(path = "/{id}")
+	@ApiOperation("Use this method to get a complete folder")
 	public ResponseEntity<Folder> getFolder(@PathVariable(value = "id") Long id){
 		return ResponseEntity.ok(folderService.findFolderById(id));
 	}
 	
 	@GetMapping(path = "/tasks/{id}")
+	@ApiOperation("Use this method to get all the tasks associated with a folder by its id")
 	public ResponseEntity<Set<Task>> getTasksByFolder(@PathVariable(value = "id") Long name){
 		Set<Task> list = folderService.findFolderById(name).getTasks();
 		return ResponseEntity.ok(list);
 	}
 	
 	@GetMapping(path = "/")
+	@ApiOperation("Use this method to get all existing folders")
 	public ResponseEntity<List<Folder>> getFolders( ){
 		List<Folder> list = folderService.getAllFolders();
 		return ResponseEntity.ok(list);
 	}
 	
 	@DeleteMapping(path = "/{id}")
+	@ApiOperation("Use this method to delete a folder and all the tasks contained in it")
 	public ResponseEntity<?> deleteFolder(@PathVariable(value = "id") Long id){
 		folderService.remove(id);
 		return ResponseEntity.noContent().build();

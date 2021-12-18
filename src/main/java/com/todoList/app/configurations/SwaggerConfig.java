@@ -18,21 +18,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	/*
+	
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("ar.gob.argentina.educacion.becas_progresar.apitytytt"))
+				.apis(RequestHandlerSelectors.basePackage("com.todoList.app.api"))
 				.paths(PathSelectors.any()) // PathSelectors.ant("/foos/*")
 				.build().enable(true).apiInfo(apiInfo())
 				.securitySchemes(new ArrayList<>(Arrays.asList(new ApiKey("apiKey", "Authorization", "header"))));
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Becas Progresar").description("Becas Progresar public and private API")
+		return new ApiInfoBuilder().title("Todo List App").description("Todo List App public and private API")
 				.license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
 				.termsOfServiceUrl("http://swagger.io/terms/").version("1.0.0").build();
 	}
-*/
+
 }
 

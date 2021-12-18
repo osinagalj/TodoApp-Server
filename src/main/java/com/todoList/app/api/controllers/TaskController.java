@@ -23,7 +23,7 @@ import com.todoList.app.service.TaskService;
 
 
 @RestController
-@RequestMapping("/api/v0/")
+@RequestMapping("tasks")
 public class TaskController {
 	
 	@Autowired
@@ -32,7 +32,7 @@ public class TaskController {
 	@Autowired
 	FolderService folderService;
 	
-	@PostMapping(path = "/tasks")
+	@PostMapping(path = "/")
 	public ResponseEntity<Task> createTask(@RequestBody TaskInput task){
 		Task t = new Task();
 		t.setDone(task.getDone());
@@ -56,27 +56,21 @@ public class TaskController {
 	}
 	*/
 	
-	@GetMapping(path = "/test")
-	public ResponseEntity<String> getTask(@PathVariable(value = "id") Long id){
-		System.out.println("ENTRANDO AL GET");
-		return ResponseEntity.ok("Accesible");
-		
-		
-	}
-	@GetMapping(path = "/tasks")
+
+	@GetMapping(path = "/")
 	public ResponseEntity<List<Task>> getTasks( ){
 		List<Task> list = taskService.getAllTasks();
 		return ResponseEntity.ok(list);
 	}
 	
 
-	@DeleteMapping(path = "/tasks/{id}")
+	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<?> deleteTask(@PathVariable(value = "id") Long id){
 		taskService.remove(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PutMapping(path = "/tasks/{id}")
+	@PutMapping(path = "/{id}")
 	public ResponseEntity<Task> updateTask(@PathVariable(value = "id") Long id, @RequestBody Task task) throws ResourceNotFoundException{
 		
 		Task employee = taskService.findTaskById(id);//.orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
