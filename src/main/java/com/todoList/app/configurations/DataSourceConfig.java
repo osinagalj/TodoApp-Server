@@ -30,14 +30,15 @@ public class DataSourceConfig implements CommandLineRunner{
 	@Override
 	public void run(String...args) throws Exception {
 		//Used to insert data when the app start..
+
 		List<RoleName> names = Arrays.asList(RoleName.ROLE_ADMIN, RoleName.ROLE_USER, RoleName.ROL_DEVELOPER);
 		names.forEach(name -> rolRepository.save(new Role(name)));  
 		
 		 
-		
+	/*
 		User admin = new User("admin","admin",passwordEncoder.encode("1234"));
 		admin.addRole(rolRepository.findByRolNombre(RoleName.ROLE_ADMIN).get());
-		userRepository.save(admin);
+		userRepository.save(admin);*/
 	}
 	
 }
