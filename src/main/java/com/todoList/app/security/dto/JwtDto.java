@@ -12,7 +12,7 @@ public class JwtDto {
 
     public JwtDto(String token, String username, Collection<? extends GrantedAuthority> authorities) {
         this.token = token;
-        this.username = username;
+        this.setUsername(username);
         this.authorities = authorities;
     }
 
@@ -41,4 +41,12 @@ public class JwtDto {
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }

@@ -2,6 +2,7 @@ package com.todoList.app.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     JwtEntryPoint jwtEntryPoint;
 
+ 
     @Bean
     public JwtTokenFilter jwtTokenFilter(){
         return new JwtTokenFilter();
@@ -59,7 +61,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	
-    	String[] exceptions = {"/**"}; //    "/**", /api/v0/folders/**
+    	
+    	String[] exceptions = { "/auth/**", 
+    			// Swagger V3
+                "/v2/api-docs",
+                "/v3/api-docs",  
+                "/swagger-resources/**", 
+                "/swagger-ui/**"
+                //api/v0/folders/**
+    			}; 
     	
         http.cors().and().csrf().disable()
                 .authorizeRequests()

@@ -43,7 +43,7 @@ public class FolderController {
 	}
 	
 	@GetMapping(path = "/{id}")
-	@ApiOperation("Use this method to get a complete folder")
+	@ApiOperation("Fetch a single folder by id")
 	public ResponseEntity<Folder> getFolder(@PathVariable(value = "id") Long id){
 		return ResponseEntity.ok(folderService.findFolderById(id));
 	}
@@ -56,7 +56,7 @@ public class FolderController {
 	}
 	
 	@GetMapping(path = "/")
-	@ApiOperation("Use this method to get all existing folders")
+	@ApiOperation("Fetch list of folders")
 	public ResponseEntity<List<Folder>> getFolders( ){
 		List<Folder> list = folderService.getAllFolders();
 		return ResponseEntity.ok(list);
