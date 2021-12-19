@@ -67,8 +67,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 "/v2/api-docs",
                 "/v3/api-docs",  
                 "/swagger-resources/**", 
-                "/swagger-ui/**",
-                "/**"
+                "/swagger-ui/**"
+                
     			}; 
     	
         http.cors().and().csrf().disable()
