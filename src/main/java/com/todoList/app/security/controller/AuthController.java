@@ -47,6 +47,24 @@ public class AuthController {
     @Autowired
     JwtProvider jwtProvider;
     
+    @PostMapping("/newRole")
+    public ResponseEntity<Role> createRol(@Valid @RequestBody String role){
+    	Role r;//= new Role(role);
+    	
+		switch(role) {
+		case "ROLE_ADMIN":
+			r = new Role(RoleName.ROLE_ADMIN);
+			break;
+		default:
+			r = new Role(RoleName.ROLE_ADMIN);
+			break;
+
+		}
+    	
+    	roleService.save(r);
+        return new ResponseEntity(new Message("rol guardado"), HttpStatus.CREATED);
+    }
+
 
     @PostMapping("/newUser")
     public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUsuario, BindingResult bindingResult){
