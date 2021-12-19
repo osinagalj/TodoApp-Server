@@ -37,10 +37,10 @@ public class DataSourceConfig implements CommandLineRunner{
 		names.forEach(name -> rolRepository.save(new Role(name)));  
 		
 		 
-	/*
+	
 		User admin = new User("admin","admin",passwordEncoder.encode("1234"));
 		admin.addRole(rolRepository.findByRolNombre(RoleName.ROLE_ADMIN).get());
-		userRepository.save(admin);*/
+		userRepository.save(admin);
 	}
 	
 }
