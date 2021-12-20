@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import com.todoList.app.persistance.model.Task;
 import com.todoList.app.service.FolderService;
 
 import io.swagger.annotations.ApiOperation;
-
+import org.slf4j.Logger;
 
 @RestController
 @RequestMapping("folders")
@@ -32,10 +33,12 @@ public class FolderController {
 	@Autowired
 	FolderService folderService;
 	
+	Logger logger = LoggerFactory.getLogger(FolderController.class);
 	
 	@PostMapping(path = "/")
 	@ApiOperation("Use this method to create a new folder")
 	public ResponseEntity<Folder> createFolder(@RequestBody FolderInput folder){
+		logger.info("Creating folder " + folder.getName());
 		Folder t = new Folder();
 		t.setName(folder.getName());
 		t.setTasks(new HashSet<>());
